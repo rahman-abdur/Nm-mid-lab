@@ -47,66 +47,38 @@ double f(double x)
 
 int main()
 {
-    double a, b, c;
+    double a, b, c, e;
 
-    cin >> a >> b;
+    cin >> a >> b >> e;  // User input
 
+    // Check tolerance
+    if (e <= 0)
+    {
+        cout << "Invalid tolerance";
+        return 0;
+    }
+
+    // Check interval
     if (f(a) * f(b) >= 0)
     {
         cout << "Invalid interval";
         return 0;
     }
 
-    while (fabs(b - a) > 0.001)
+    while (true)
     {
         c = (a + b) / 2;
 
-        if (f(c) == 0)
+        if (fabs(f(c)) < e)
             break;
-        else if (f(a) * f(c) < 0)
+
+        if (f(a) * f(c) < 0)
             b = c;
         else
             a = c;
     }
 
     cout << "Root = " << c;
-
-    return 0;
-}
-Raphson:
-
-
-#include <iostream>
-#include <cmath>
-using namespace std;
-
-double f(double x)
-{
-    return x*x*x - x - 2;
-}
-
-double df(double x)
-{
-    return 3*x*x - 1;
-}
-
-int main()
-{
-    double x, x1;
-
-    cin >> x;
-
-    while (true)
-    {
-        x1 = x - f(x) / df(x);
-
-        if (fabs(x1 - x) < 0.001)
-            break;
-
-        x = x1;
-    }
-
-    cout << "Root = " << x1;
 
     return 0;
 }
