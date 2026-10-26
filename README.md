@@ -82,6 +82,57 @@ int main()
 
     return 0;
 }
+
+//Raphson
+
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+double f(double x)
+{
+    return x*x*x - x - 2;
+}
+
+double df(double x)
+{
+    return 3*x*x - 1;
+}
+
+int main()
+{
+    double x, x1, e;
+
+    cin >> x >> e;
+
+    if (e <= 0)
+    {
+        cout << "Invalid tolerance";
+        return 0;
+    }
+
+    while (true)
+    {
+        if (df(x) == 0)
+        {
+            cout << "Math error";
+            return 0;
+        }
+
+        x1 = x - f(x) / df(x);
+
+        if (fabs(x1 - x) < e)
+            break;
+
+        x = x1;
+    }
+
+    cout << "Root = " << x1;
+
+    return 0;
+}
+
+
 Newton forward Interpolation:
 
 
